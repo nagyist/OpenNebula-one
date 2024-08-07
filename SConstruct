@@ -27,7 +27,6 @@ from SCons.Script import ARGUMENTS, SConscript
 sys.path.append("./share/scons")
 from lex_bison import *
 
-
 # Get git version
 try:
     out = Popen(["git", "describe", "--dirty", "--always", "--abbrev=8"],
@@ -136,7 +135,7 @@ vars = Variables('custom.py')
 vars.Add('sqlite_dir', 'Path to sqlite directory', '')
 vars.Add('sqlite', 'Build with SQLite support', 'yes')
 vars.Add('mysql', 'Build with MySQL support', 'no')
-vars.Add('parsers', 'Obsolete. Rebuild flex/bison files', 'no')
+vars.Add('parsers', 'Rebuild flex/bison files', 'no')
 vars.Add('xmlrpc', 'Path to xmlrpc directory', '')
 vars.Add('new_xmlrpc', 'Use xmlrpc-c version >=1.31', 'no')
 vars.Add('sunstone', 'Build Sunstone', 'no')
@@ -146,6 +145,7 @@ vars.Add('rubygems', 'Generate Ruby gems', 'no')
 vars.Add('svncterm', 'Build VNC support for LXD drivers', 'yes')
 vars.Add('context', 'Download guest contextualization packages', 'no')
 vars.Add('strict', 'Strict C++ compiler, more warnings, treat warnings as errors', 'no')
+vars.Add('download', 'Download 3rdParty tools', 'no')
 env = Environment(variables = vars)
 Help(vars.GenerateHelpText(env))
 
@@ -213,6 +213,15 @@ if strict == 'yes':
         "-Wno-unused-result"
     ])
 
+# Download: Download 3rdParty tools
+download = ARGUMENTS.get('download', 'no')
+if download == 'yes':
+    tools = Popen(['find', '.', '-type', 'f', '-executable', '-path', '*/vendor/download'], stdout=PIPE).stdout.readlines()
+
+    for t in tools:
+        tool = t.rstrip().decode()
+        print("Executing: {}".format(tool))
+        Popen(tool)
 
 # Rubygem generation
 main_env.Append(rubygems=ARGUMENTS.get('rubygems', 'no'))

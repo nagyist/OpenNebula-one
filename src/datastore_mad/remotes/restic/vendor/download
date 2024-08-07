@@ -15,7 +15,7 @@
 # limitations under the License.                                             #
 # -------------------------------------------------------------------------- #
 
-: "${RESTIC_VERSION:=0.16.0}"
+: "${RESTIC_VERSION:=0.16.5}"
 
 set -o errexit -o nounset -o pipefail
 
@@ -26,6 +26,6 @@ readonly SELF=$(realpath "$0" | xargs dirname) && cd "$SELF/"
 readonly RESTIC_URL="https://github.com/restic/restic/releases/download/v${RESTIC_VERSION}/restic_${RESTIC_VERSION}_linux_amd64.bz2"
 
 install -d "$SELF/bin/"
-curl -fsSL "$RESTIC_URL" | bzip2  -d -s > "$SELF/bin/restic_${RESTIC_VERSION}_linux_amd64"
+curl -fsSL "$RESTIC_URL" | bzip2  -d -s > "$SELF/bin/restic"
 
-chmod ugo+x "$SELF/bin/restic_${RESTIC_VERSION}_linux_amd64"
+chmod ugo+x "$SELF/bin/restic"
