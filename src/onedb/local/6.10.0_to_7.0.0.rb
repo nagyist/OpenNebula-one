@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------- #
-# Copyright 2019-2024, OpenNebula Systems S.L.                               #
+# Copyright 2019-2025, OpenNebula Systems S.L.                               #
 #                                                                            #
 # Licensed under the OpenNebula Software License                             #
 # (the "License"); you may not use this file except in compliance with       #
@@ -112,7 +112,8 @@ module Migrator
                                    YAML.load_file(sunstone_default_labels)
                                        &.dig('labels_groups')
                                        &.transform_values do |labels|
-                                         labels.map { |label| "$#{sanitize_label(label.strip)}" }
+                                           next unless labels
+                                           [labels].flatten.map { |label| "$#{sanitize_label(label&.strip)}" }
                                        end
                                  else
                                    {}
