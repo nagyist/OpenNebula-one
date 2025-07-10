@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------- #
-# Copyright 2019-2024, OpenNebula Systems S.L.                               #
+# Copyright 2019-2025, OpenNebula Systems S.L.                               #
 #                                                                            #
 # Licensed under the OpenNebula Software License                             #
 # (the "License"); you may not use this file except in compliance with       #
@@ -112,7 +112,8 @@ module Migrator
                                    YAML.load_file(sunstone_default_labels)
                                        &.dig('labels_groups')
                                        &.transform_values do |labels|
-                                         labels.map { |label| "$#{sanitize_label(label.strip)}" }
+                                           next unless labels
+                                           [labels].flatten.map { |label| "$#{sanitize_label(label&.strip)}" }
                                        end
                                  else
                                    {}
@@ -319,9 +320,9 @@ module Migrator
         short_doc.at_xpath('VM/ETIME').content = now
 
         json = JSON.parse(row[:body_json])
-        json[:VM][:STATE] = 6
-        json[:VM][:LCM_STATE] = 0
-        json[:VM][:ETIME] = now
+        json['VM']['STATE'] = 6
+        json['VM']['LCM_STATE'] = 0
+        json['VM']['ETIME'] = now
 
         @db[:vm_pool].filter(oid: row[:oid]).update(body: doc.root.to_s,
                                                     short_body: short_doc.root.to_s,

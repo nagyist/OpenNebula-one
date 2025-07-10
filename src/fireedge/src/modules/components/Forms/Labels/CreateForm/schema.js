@@ -30,7 +30,8 @@ const LABEL_NAME = {
       /^[a-zA-Z0-9_-]+$/,
       'Name must only contain alphanumeric characters, "-", "_" and no spaces'
     )
-    .required(T.NewLabelname),
+    .required(T.NewLabelname)
+    .afterSubmit((value) => `$${value}`),
 }
 
 const LABEL_TYPE = {
@@ -58,9 +59,13 @@ const PARENT = {
     const [, TYPE] = deps
     const { labels } = useAuth()
 
-    const labelsArray = labelsToArray(labels)
+    const labelsArray = [].concat(labelsToArray(labels)?.[TYPE])
 
-    return arrayToOptions(labelsArray?.[TYPE], { addEmpty: false })
+    return arrayToOptions(labelsArray, {
+      addEmpty: false,
+      getText: (label) => label?.replace(/\$/g, ''),
+      getValue: (label) => label,
+    })
   },
 
   validation: lazy((_, { parent = {} } = {}) => {

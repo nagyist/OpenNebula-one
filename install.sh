@@ -1315,6 +1315,7 @@ TM_LIB_FILES="src/tm_mad/lib/kvm.rb \
               src/tm_mad/lib/tm_action.rb \
               src/tm_mad/lib/backup_qcow2.rb \
               src/tm_mad/lib/datastore.rb \
+              src/tm_mad/lib/tm_cache.rb \
               src/tm_mad/lib/backup.rb"
 
 TM_SHARED_FILES="src/tm_mad/shared/clone \
@@ -1791,7 +1792,8 @@ ONEDB_SHARED_MIGRATOR_FILES="src/onedb/shared/2.0_to_2.9.80.rb \
                              src/onedb/shared/6.4.0_to_6.6.0.rb \
                              src/onedb/shared/6.6.0_to_6.8.0.rb \
                              src/onedb/shared/6.8.0_to_6.10.0.rb \
-                             src/onedb/shared/6.10.0_to_7.0.0.rb"
+                             src/onedb/shared/6.10.0_to_7.0.0.rb \
+                             src/onedb/shared/7.0.0_to_7.2.0.rb"
 
 ONEDB_LOCAL_MIGRATOR_FILES="src/onedb/local/4.5.80_to_4.7.80.rb \
                             src/onedb/local/4.7.80_to_4.9.80.rb \
@@ -1815,7 +1817,8 @@ ONEDB_LOCAL_MIGRATOR_FILES="src/onedb/local/4.5.80_to_4.7.80.rb \
                             src/onedb/local/6.4.0_to_6.6.0.rb \
                             src/onedb/local/6.6.0_to_6.8.0.rb \
                             src/onedb/local/6.8.0_to_6.10.0.rb \
-                            src/onedb/local/6.10.0_to_7.0.0.rb"
+                            src/onedb/local/6.10.0_to_7.0.0.rb \
+                            src/onedb/local/7.0.0_to_7.2.0.rb"
 
 #-------------------------------------------------------------------------------
 # Configuration files for OpenNebula, to be installed under $ETC_LOCATION
@@ -2270,7 +2273,9 @@ ONECFG_SHARE_MIGRATORS_FILES="src/onecfg/share/migrators/5.4.0_to_5.4.1.yaml \
                               src/onecfg/share/migrators/6.10.0_to_6.10.2.rb \
                               src/onecfg/share/migrators/6.10.0_to_6.10.2.yaml \
                               src/onecfg/share/migrators/6.10.2_to_7.0.0.rb \
-                              src/onecfg/share/migrators/6.10.2_to_7.0.0.yaml"
+                              src/onecfg/share/migrators/6.10.2_to_7.0.0.yaml \
+                              src/onecfg/share/migrators/7.0.0_to_7.1.80.rb \
+                              src/onecfg/share/migrators/7.0.0_to_7.1.80.yaml"
 
 #-----------------------------------------------------------------------------
 # OneHem files
